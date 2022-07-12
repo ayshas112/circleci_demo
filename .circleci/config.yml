@@ -1,24 +1,21 @@
 version: 2.1
-jobs: 
-  build: 
-    steps: 
-      - checkout
-      - 
-        run: "python3 main.py"
-    test: 
-      steps: 
-        - checkout
-        - 
-          run: "python3 main-test.py"
-      working_directory: ~/HelloWorld
-    working_directory: ~/HelloWorld
-version: 2.1
-workflows: 
-  build_and_test: 
-    jobs: 
-      - build
-      - 
-        test: 
-          requires: 
-            - build
 
+jobs:
+ build:
+  working_directory: ~/HelloWorld
+  steps:
+   - checkout
+   - run: python3 main.py
+  test:
+   working_directory: ~/HelloWorld
+   steps:
+    - checkout
+    - run: python3 main-test.py
+
+workflows:
+ build_and_test:
+  jobs:
+   - build
+   - test:
+      requires:
+       - build
