@@ -1,0 +1,22 @@
+version:2.1
+
+jobs:
+	build:
+		working_directory: ~/HelloWorld
+		- image: "circleci/python:3.6.4"
+		steps:
+			- checkout
+			- run: python3 main.py
+	test:
+		working_directory: ~/HelloWorld
+		- image: "circleci/python:3.6.4"
+		steps:
+			- checkout
+			- run: python3 main-test.py
+workflows:
+	build_and_test:
+		jobs:
+			- build
+			- test:
+				requires:
+					- build
